@@ -13,15 +13,9 @@ function define_models {
 	case ${N} in
 	   1) 
 		MODEL_NAME=CT_cardiac_structures_deeplab
-		MODEL_GIT="H4sIAE2qOWYAA8soKSkottLXT88syShN0kvOz9VPTi0q0ncOiU9OLErJTEyOLy4pKk0uKS1KLY5PSU0tyElM4gIACCFhTTYAAAA="
-		MODEL_WEIGHTS="H4sIAD8pPmYAAwXBUQqAIBAFwP8O46YlZLexLTVELN9S0umbSSIXVqKCzKy22hXXQki+HTtBvJxM1Zq5I1o4fY+hvdnrMTwIi5mcRYwqfsMPzAV1z0gAAAA="
-		CONDAPACK="H4sIADABPWYAAwXBUQqAIAwA0P8O46IcSbfRZSoxlm1EePreq2a37gCsF5FL8jkSBq3xyQeoRWsEaSxbiKv3LMgt9ILjnbWeBQXFp+7KmH5thOuWSAAAAA=="
 		;;
 	   2)
 		MODEL_NAME=CT_Lung_SMIT
-		MODEL_GIT="NONE"
-		MODEL_WEIGHTS="NONE"
-		CONDAPACK_HASH="NONE"
 	  	;;
 #	   3) 
 #		MODEL_NAME=CT_Brain_SMIT
@@ -48,7 +42,7 @@ function print_model_opts {
         echo "The following are the list of available models. When passing the argument to installer, select the number of the model to download: "
 	for N in `seq 1 ${N_MODELS}`
 	do
-		echo "          	${N}.  `define_models ${N} | awk '{ print $1 }'`"
+		echo "          	${N}.  `define_models ${N}`"
 	done
 }
 
@@ -90,9 +84,8 @@ while getopts ":hm:d:ip:" opt; do
 	exit 0
       ;;
     m)
-        MODEL_NUM=${OPTARG}
-	MODEL_STRING=`define_models ${MODEL_NUM}`
-	MODEL_NAME=`echo ${MODEL_STRING} | awk '{ print $1 }'`
+    MODEL_NUM=${OPTARG}
+	MODEL_NAME=`define_models ${MODEL_NUM}`
 	if [ "${MODEL_NAME}" == "Error" ]; then MODEL_NUM="NONE"; fi
       ;;
     d)
@@ -141,11 +134,11 @@ then
 
 	if [ "${USR_ANS}" != "" ]; then MODEL_NUM=${USR_ANS}; fi
 
-	MODEL_STRING=`define_models ${MODEL_NUM}`
+	#MODEL_STRING=`define_models ${MODEL_NUM}`
 	MODEL_NAME=`echo ${MODEL_STRING} | awk '{ print $1 }'`
-	MODEL_GIT_HASH=`echo ${MODEL_STRING} | awk '{ print $2 }'`
-	MODEL_WEIGHTS_HASH=`echo ${MODEL_STRING} | awk '{ print $3 }'`
-	CONDAPACK_HASH=`echo ${MODEL_STRING} | awk '{ print $4 }'`
+	#MODEL_GIT_HASH=`echo ${MODEL_STRING} | awk '{ print $2 }'`
+	#MODEL_WEIGHTS_HASH=`echo ${MODEL_STRING} | awk '{ print $3 }'`
+	#CONDAPACK_HASH=`echo ${MODEL_STRING} | awk '{ print $4 }'`
 
 	if [ "${MODEL_NAME}" != "Error" ]
 	then 
@@ -192,11 +185,11 @@ then
 	echo "Proceeding with installation and setup"
 	
 else
-	MODEL_STRING=`define_models ${MODEL_NUM}`
-        MODEL_NAME=`echo ${MODEL_STRING} | awk '{ print $1 }'`
-        MODEL_GIT_HASH=`echo ${MODEL_STRING} | awk '{ print $2 }'`
-        MODEL_WEIGHTS_HASH=`echo ${MODEL_STRING} | awk '{ print $3 }'`
-        CONDAPACK_HASH=`echo ${MODEL_STRING} | awk '{ print $4 }'`
+	#MODEL_STRING=`define_models ${MODEL_NUM}`
+    MODEL_NAME=`define_models ${MODEL_NUM}`
+    #MODEL_GIT_HASH=`echo ${MODEL_STRING} | awk '{ print $2 }'`
+    #MODEL_WEIGHTS_HASH=`echo ${MODEL_STRING} | awk '{ print $3 }'`
+    #CONDAPACK_HASH=`echo ${MODEL_STRING} | awk '{ print $4 }'`
 fi
 
 # Verify all selected options
@@ -207,14 +200,18 @@ fi
 if [ "${MODEL_NUM}" == "1" ]
 then
 	cd ${INSTALLDIR}
-	MODEL_GIT=`base64 -d <<<${MODEL_GIT_HASH} | gunzip`
+	#MODEL_GIT=`base64 -d <<<${MODEL_GIT_HASH} | gunzip`
+	MODEL_GIT="https://github.com/cerr/${MODEL_NAME}.git"
 	echo git clone ${MODEL_GIT}
 	git clone ${MODEL_GIT}
 
-	MODEL_FOLDER=`basename ${MODEL_GIT} | sed "s/.git//g"`
-	MODEL_PATH=${INSTALLDIR}/${MODEL_FOLDER}
+	#MODEL_FOLDER=`basename ${MODEL_GIT} | sed "s/.git//g"`
+	MODEL_PATH=${INSTALLDIR}/${MODEL_NAME}
 	echo cd ${MODEL_PATH}
 	cd ${MODEL_PATH}
+
+	MODEL_WEIGHTS_HASH=`cat model.txt | grep MODEL_WEIGHTS | awk '{ print $2 }'`
+	CONDAPACK_HASH=`cat model.txt | grep CONDAPACK | awk '{ print $2 }'`
 
 	MODEL_WEIGHTS=`base64 -d <<<${MODEL_WEIGHTS_HASH} | gunzip`
 	echo wget -O model_weights.tar.gz -L ${MODEL_WEIGHTS}
