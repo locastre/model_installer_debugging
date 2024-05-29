@@ -3,13 +3,21 @@
 Locally set up and install network weights, scripts and (optionally) Conda environments for running image segmentation.
 
 ```
-  ____  _             _   _       _____
- / ___|| |_ _ __ __ _| |_(_)___  |  ___|__  _ __ __ _  ___
- \___ \| __| '__/ _` | __| / __| | |_ / _ \| '__/ _` |/ _ \
-  ___) | |_| | | (_| | |_| \__ \ |  _| (_) | | | (_| |  __/
- |____/ \__|_|  \__,_|\__|_|___/ |_|  \___/|_|  \__, |\___|
-                                                |___/
+      ___           ___           ___           ___
+     /  /\         /  /\         /  /\         /  /\
+    /  /:/        /  /:/_       /  /::\       /  /::\
+   /  /:/        /  /:/ /\     /  /:/\:\     /  /:/\:\
+  /  /:/  ___   /  /:/ /:/_   /  /:/~/:/    /  /:/~/:/
+ /__/:/  /  /\ /__/:/ /:/ /\ /__/:/ /:/___ /__/:/ /:/___
+ \  \:\ /  /:/ \  \:\/:/ /:/ \  \:\/:::::/ \  \:\/:::::/
+  \  \:\  /:/   \  \::/ /:/   \  \::/~~~~   \  \::/~~~~
+   \  \:\/:/     \  \:\/:/     \  \:\        \  \:\
+    \  \::/       \  \::/       \  \:\        \  \:\
+     \__\/         \__\/         \__\/         \__\/
+
 Medical Physics Department, Memorial Sloan Kettering Cancer Center, New York, NY
+
+Welcome to the CERR segmentation model installer! For usage information, run with -h flag
 
 Welcome to the Stratis-Forge segmentation model installer! For usage information, run with -h flag
 
