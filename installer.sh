@@ -1,7 +1,9 @@
 #!/bin/bash
 
 function print_stratis_logo {
-	base64 -d <<<H4sIAApMMWYAA31QWwoDIRD79xT56y4UvJCQHiSHbyaztYWWDuKYx0QRoAvw+ijizbAN3zUwS5Qg2s1ehQ6emVGm1fmXHsqzq9qSkXAjHfVAo5k9qT6WZ+vBIxFnHPHhuPyqVKzcW2w8W/fUHHax0la9y5z7nWoU4cVybh2lU+PXJ/yrDuy/egIijh69aAEAAA== | gunzip
+	#base64 -d <<<H4sIAApMMWYAA31QWwoDIRD79xT56y4UvJCQHiSHbyaztYWWDuKYx0QRoAvw+ijizbAN3zUwS5Qg2s1ehQ6emVGm1fmXHsqzq9qSkXAjHfVAo5k9qT6WZ+vBIxFnHPHhuPyqVKzcW2w8W/fUHHax0la9y5z7nWoU4cVybh2lU+PXJ/yrDuy/egIijh69aAEAAA== | gunzip
+	base64 -d <<<H4sIACUzV2YAA43S2w3AIAgF0P87BRv47ywkbOLsVQHFRxNJ0/SE4LW2RK1EhGa9CP2e6sWj9yS4coq9nCQq8yH8zHmKivMhzDndvc9ppqrYulGgJNKfdPcmy5xqqy4C1diWbUkqn3W12lS3apP2nl02N1RqbYKb/Xxu8oMLAoWU0F11mdQfgEV4fI834QOhVOhJcwIAAA== | gunzip
+	echo " "
 	echo "Medical Physics Department, Memorial Sloan Kettering Cancer Center, New York, NY"
 	echo " " 
 }
@@ -65,7 +67,7 @@ function help_text {
 }
 
 function intro_text {
-	echo "Welcome to the Stratis-Forge segmentation model installer! For usage information, run with -h flag"
+	echo "Welcome to the CERR segmentation model installer! For usage information, run with -h flag"
 	echo " "
 }
 
