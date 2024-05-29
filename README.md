@@ -19,8 +19,6 @@ Medical Physics Department, Memorial Sloan Kettering Cancer Center, New York, NY
 
 Welcome to the CERR segmentation model installer! For usage information, run with -h flag
 
-Welcome to the Stratis-Forge segmentation model installer! For usage information, run with -h flag
-
 Usage Information:
         Flags:
                 -i : Flag to run installer in interactive mode (no argument)
