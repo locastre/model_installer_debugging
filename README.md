@@ -1,4 +1,4 @@
-# Stratis-Forge Model Installer
+# CERR Segmentation Model Installer
 
 Locally set up and install network weights, scripts and (optionally) Conda environments for running image segmentation.
 
