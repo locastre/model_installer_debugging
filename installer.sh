@@ -17,8 +17,11 @@ function define_models {
 		MODEL_NAME=CT_cardiac_structures_deeplab
 		;;
 	   2)
-		MODEL_NAME=CT_Lung_SMIT
+		MODEL_NAME=CT_LungOAR_incrMRRN
 	  	;;
+           3)
+		MODEL_NAME=MR_Prostate_Deeplab
+		;;
 #	   3) 
 #		MODEL_NAME=CT_Brain_SMIT
 #		MODEL_GIT="NONE"
@@ -36,11 +39,13 @@ function define_models {
 		;;
 	esac
 
-	echo $MODEL_NAME ${MODEL_GIT} ${MODEL_WEIGHTS} ${CONDAPACK}
+	echo $MODEL_NAME #${MODEL_GIT} ${MODEL_WEIGHTS} ${CONDAPACK}
 }
 
+#N_MODELS=3
+
 function print_model_opts {
-	N_MODELS=2
+	N_MODELS=3
         echo "The following are the list of available models. When passing the argument to installer, select the number of the model to download: "
 	for N in `seq 1 ${N_MODELS}`
 	do
@@ -49,10 +54,11 @@ function print_model_opts {
 }
 
 function help_text {
+	N_MODELS=3
 	echo "Usage Information: "
 	echo "	Flags: "
 	echo "		-i : Flag to run installer in interactive mode (no argument)"
-	echo "		-m : [1-2] Integer number to select model to install. For list of available options, see below. "
+	echo "		-m : [1-${N_MODELS}] Integer number to select model to install. For list of available options, see below. "
 	echo "		-d : Directory to install model with network weights "
 	echo "		-p : [P/C/N] Setup and install Python environment P:Conda env from YAML; C: Conda pack download; N: No install. " #User must already have Anaconda installed and initiated. "
 	echo "		-h : Print help menu "
@@ -136,8 +142,8 @@ then
 
 	if [ "${USR_ANS}" != "" ]; then MODEL_NUM=${USR_ANS}; fi
 
-	#MODEL_STRING=`define_models ${MODEL_NUM}`
-	MODEL_NAME=`echo ${MODEL_STRING} | awk '{ print $1 }'`
+	MODEL_STRING=`define_models ${MODEL_NUM}`
+	MODEL_NAME=`echo ${MODEL_STRING}` #| awk '{ print $1 }'`
 	#MODEL_GIT_HASH=`echo ${MODEL_STRING} | awk '{ print $2 }'`
 	#MODEL_WEIGHTS_HASH=`echo ${MODEL_STRING} | awk '{ print $3 }'`
 	#CONDAPACK_HASH=`echo ${MODEL_STRING} | awk '{ print $4 }'`
@@ -160,7 +166,7 @@ then
 
 	read USR_ANS
 	
-	if [ "${USR_ANS}" != "" ]; then ${INSTALLDIR}=${USR_ANS}; fi
+	if [ "${USR_ANS}" != "" ]; then INSTALLDIR=${USR_ANS}; fi
 
 	echo "Installation directory selected is ${INSTALLDIR}"
 
@@ -198,19 +204,19 @@ fi
 
 # Commence with install
 
-# Option 1: Install cardiac substructures DeepLab
-if [ "${MODEL_NUM}" == "1" ]
+# Option 1: Install cardiac substructures DeepLab/Lung_incrMRRN/Prostate
+if [[ "${MODEL_NUM}" == "1" || "${MODEL_NUM}" == "2" || "${MODEL_NUM}" == "3" ]]
 then
 	cd ${INSTALLDIR}
-	#MODEL_GIT=`base64 -d <<<${MODEL_GIT_HASH} | gunzip`
+
 	MODEL_GIT="https://github.com/cerr/${MODEL_NAME}.git"
 	echo git clone ${MODEL_GIT}
 	git clone ${MODEL_GIT}
 
 	#MODEL_FOLDER=`basename ${MODEL_GIT} | sed "s/.git//g"`
-	MODEL_PATH=${INSTALLDIR}/${MODEL_NAME}
-	echo cd ${MODEL_PATH}
-	cd ${MODEL_PATH}
+
+	MODEL_FOLDER=${INSTALLDIR}/${MODEL_NAME}
+	cd ${MODEL_FOLDER}
 
 	MODEL_WEIGHTS_HASH=`cat model.txt | grep MODEL_WEIGHTS | awk '{ print $2 }'`
 	CONDAPACK_HASH=`cat model.txt | grep CONDAPACK | awk '{ print $2 }'`
@@ -220,17 +226,19 @@ then
 	wget -O model_weights.tar.gz -L ${MODEL_WEIGHTS}	
 	echo tar xf model_weights.tar.gz	
 	tar xf model_weights.tar.gz
+	rm model_weights.tar.gz
 
 	if [ "${POPTION}" == "C" ]
 	then 
 		#download conda-pack
-		mkdir ${MODEL_PATH}/conda-pack
-		cd ${MODEL_PATH}/conda-pack
+		mkdir ${MODEL_FOLDER}/conda-pack
+		cd ${MODEL_FOLDER}/conda-pack
 		CONDAPACK=`base64 -d <<<${CONDAPACK_HASH} | gunzip`
 		echo wget -O condapack.tar.gz -L ${CONDAPACK}
 		wget -O condapack.tar.gz -L ${CONDAPACK}
 		echo tar xf condapack.tar.gz
 		tar xf condapack.tar.gz
+		rm condapack.tar.gz
 	elif [ "${POPTION}" == "P" ]
 	then
 		#set up Conda environment
