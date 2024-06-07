@@ -8,7 +8,7 @@ function print_stratis_logo {
 	echo " " 
 }
 
-N_MODELS=2
+N_MODELS=4
 
 function define_models {
 	N=$1
@@ -22,6 +22,9 @@ function define_models {
            3)
 		MODEL_NAME=MR_Prostate_Deeplab
 		;;
+	   4)   
+		MODEL_NAME=CT_Lung_SMIT
+	        ;;
 #	   3) 
 #		MODEL_NAME=CT_Brain_SMIT
 #		MODEL_GIT="NONE"
@@ -45,7 +48,7 @@ function define_models {
 #N_MODELS=3
 
 function print_model_opts {
-	N_MODELS=3
+	N_MODELS=4
         echo "The following are the list of available models. When passing the argument to installer, select the number of the model to download: "
 	for N in `seq 1 ${N_MODELS}`
 	do
@@ -60,7 +63,7 @@ function help_text {
 	echo "		-i : Flag to run installer in interactive mode (no argument)"
 	echo "		-m : [1-${N_MODELS}] Integer number to select model to install. For list of available options, see below. "
 	echo "		-d : Directory to install model with network weights "
-	echo "		-p : [P/C/N] Setup and install Python environment P:Conda env from YAML; C: Conda pack download; N: No install. " #User must already have Anaconda installed and initiated. "
+	echo "		-p : [P/C/N] Setup and install Python environment P: setup Conda env from python requirements.txt; C: Conda pack download; N: No install. " #User must already have Anaconda installed and initiated. "
 	echo "		-h : Print help menu "
 	echo " "
 	print_model_opts
