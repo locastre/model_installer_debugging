@@ -179,7 +179,7 @@ then
 	echo "*********************"
 	echo " " 
 	echo "Please select the option indicate if the installer should create the Python environment [${POPTION}]: " # [${PYSETUP}]: "
-	echo "	P : Set up Conda environment from included YAML file"
+	echo "	P : Set up Conda environment from repository requirements.txt file"
 	echo "  C : Download Conda-Pack environment"
 	echo "  N : No Python setup"
 
@@ -208,8 +208,9 @@ fi
 # Commence with install
 
 # Option 1: Install cardiac substructures DeepLab/Lung_incrMRRN/Prostate
-if [[ "${MODEL_NUM}" == "1" || "${MODEL_NUM}" == "2" || "${MODEL_NUM}" == "3" ]]
-then
+#if [[ "${MODEL_NUM}" == "1" || "${MODEL_NUM}" == "2" || "${MODEL_NUM}" == "3" ]]
+#then
+	mkdir -p ${INSTALLDIR}
 	cd ${INSTALLDIR}
 
 	MODEL_GIT="https://github.com/cerr/${MODEL_NAME}.git"
@@ -259,7 +260,7 @@ then
 		conda activate ${MODEL_NAME}
 		pip install -r requirements.txt
 	fi
-fi
+#fi
 
 
 # Option 2: Install CT_Lung_SMIT
