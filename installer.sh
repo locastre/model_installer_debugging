@@ -57,7 +57,7 @@ function print_model_opts {
 }
 
 function help_text {
-	N_MODELS=3
+	N_MODELS=4
 	echo "Usage Information: "
 	echo "	Flags: "
 	echo "		-i : Flag to run installer in interactive mode (no argument)"
