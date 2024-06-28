@@ -1,6 +1,6 @@
 # CERR Segmentation Model Installer
 
-Locally set up and install network weights, scripts and (optionally) Conda environments for running image segmentation.
+Locally set up and install network weights, scripts and (optionally) Conda environments for running AI-based image segmentation and registration models.
 
 ```
       ___           ___           ___           ___
@@ -32,4 +32,5 @@ The following are the list of available models. When passing the argument to ins
                 2.  CT_LungOAR_incrMRRN
                 3.  MR_Prostate_Deeplab
                 4.  CT_Lung_SMIT
+                5.  MRI_Pancreas_Fullshot_AnatomicCtxShape
 ```
