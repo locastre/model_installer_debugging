@@ -25,6 +25,9 @@ function define_models {
 	   4)   
 		MODEL_NAME=CT_Lung_SMIT
 	        ;;
+     5)   
+		MODEL_NAME=MRI_Pancreas_Fullshot_AnatomicCtxShape
+	        ;;
 #	   3) 
 #		MODEL_NAME=CT_Brain_SMIT
 #		MODEL_GIT="NONE"
@@ -48,7 +51,7 @@ function define_models {
 #N_MODELS=3
 
 function print_model_opts {
-	N_MODELS=4
+	N_MODELS=5
         echo "The following are the list of available models. When passing the argument to installer, select the number of the model to download: "
 	for N in `seq 1 ${N_MODELS}`
 	do
@@ -57,7 +60,7 @@ function print_model_opts {
 }
 
 function help_text {
-	N_MODELS=4
+	N_MODELS=5
 	echo "Usage Information: "
 	echo "	Flags: "
 	echo "		-i : Flag to run installer in interactive mode (no argument)"
