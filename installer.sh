@@ -8,7 +8,7 @@ function print_stratis_logo {
 	echo " " 
 }
 
-N_MODELS=4
+N_MODELS=6
 
 function define_models {
 	N=$1
@@ -28,18 +28,15 @@ function define_models {
      5)   
 		MODEL_NAME=MRI_Pancreas_Fullshot_AnatomicCtxShape
 	        ;;
+     6)
+		MODEL_NAME=CT_HeadAndNeck_OARs
+      		;;
 #	   3) 
 #		MODEL_NAME=CT_Brain_SMIT
 #		MODEL_GIT="NONE"
 #               MODEL_WEIGHTS="NONE"
 #		CONDAPACK_HASH="NONE"
 #	  	;;
-#	   4)
-#		MODEL_NAME=CT_HeadAndNeck_SelfAttention
-#		MODEL_GIT="NONE"
-#               MODEL_WEIGHTS="NONE"
-#		CONDAPACK_HASH="NONE"
-#		;;
 	   *)
 		echo Error
 		;;
@@ -48,10 +45,10 @@ function define_models {
 	echo $MODEL_NAME #${MODEL_GIT} ${MODEL_WEIGHTS} ${CONDAPACK}
 }
 
-#N_MODELS=3
+#N_MODELS=6
 
 function print_model_opts {
-	N_MODELS=5
+	N_MODELS=6
         echo "The following are the list of available models. When passing the argument to installer, select the number of the model to download: "
 	for N in `seq 1 ${N_MODELS}`
 	do
