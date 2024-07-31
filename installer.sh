@@ -8,7 +8,7 @@ function print_stratis_logo {
 	echo " " 
 }
 
-N_MODELS=6
+N_MODELS=7
 
 function define_models {
 	N=$1
@@ -31,6 +31,9 @@ function define_models {
      6)
 		MODEL_NAME=CT_HeadAndNeck_OARs
       		;;
+	7) 
+ 		MODEL_NAME=CT_HN_SMIT
+   		;;
 #	   3) 
 #		MODEL_NAME=CT_Brain_SMIT
 #		MODEL_GIT="NONE"
@@ -48,7 +51,7 @@ function define_models {
 #N_MODELS=6
 
 function print_model_opts {
-	N_MODELS=6
+	N_MODELS=7
         echo "The following are the list of available models. When passing the argument to installer, select the number of the model to download: "
 	for N in `seq 1 ${N_MODELS}`
 	do
@@ -57,7 +60,7 @@ function print_model_opts {
 }
 
 function help_text {
-	N_MODELS=6
+	N_MODELS=7
 	echo "Usage Information: "
 	echo "	Flags: "
 	echo "		-i : Flag to run installer in interactive mode (no argument)"
