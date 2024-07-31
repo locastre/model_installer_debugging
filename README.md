@@ -34,5 +34,5 @@ The following are the list of available models. When passing the argument to ins
                 4.  CT_Lung_SMIT
                 5.  MRI_Pancreas_Fullshot_AnatomicCtxShape
 		6.  CT_HeadAndNeck_OARs
-                7. CT_HN_SMIT
+                7.  CT_HN_SMIT
 ```
