@@ -25,15 +25,18 @@ function define_models {
 	   4)   
 		MODEL_NAME=CT_Lung_SMIT
 	        ;;
-     5)   
+     	   5)   
 		MODEL_NAME=MRI_Pancreas_Fullshot_AnatomicCtxShape
 	        ;;
-     6)
+     	   6)
 		MODEL_NAME=CT_HeadAndNeck_OARs
       		;;
-	7) 
+     	   7) 
  		MODEL_NAME=CT_HN_SMIT
    		;;
+     	   8)
+     		MODEL_NAME=CT_HeartSubstruct_SMIT
+       		;;
 #	   3) 
 #		MODEL_NAME=CT_Brain_SMIT
 #		MODEL_GIT="NONE"
@@ -51,7 +54,7 @@ function define_models {
 #N_MODELS=6
 
 function print_model_opts {
-	N_MODELS=7
+	N_MODELS=8
         echo "The following are the list of available models. When passing the argument to installer, select the number of the model to download: "
 	for N in `seq 1 ${N_MODELS}`
 	do
@@ -60,7 +63,7 @@ function print_model_opts {
 }
 
 function help_text {
-	N_MODELS=7
+	N_MODELS=8
 	echo "Usage Information: "
 	echo "	Flags: "
 	echo "		-i : Flag to run installer in interactive mode (no argument)"
@@ -210,64 +213,54 @@ fi
 
 # Commence with install
 
-# Option 1: Install cardiac substructures DeepLab/Lung_incrMRRN/Prostate
-#if [[ "${MODEL_NUM}" == "1" || "${MODEL_NUM}" == "2" || "${MODEL_NUM}" == "3" ]]
-#then
-	mkdir -p ${INSTALLDIR}
-	cd ${INSTALLDIR}
+mkdir -p ${INSTALLDIR}
+cd ${INSTALLDIR}
 
-	MODEL_GIT="https://github.com/cerr/${MODEL_NAME}.git"
-	echo git clone ${MODEL_GIT}
-	git clone ${MODEL_GIT}
+MODEL_GIT="https://github.com/cerr/${MODEL_NAME}.git"
+echo git clone ${MODEL_GIT}
+git clone ${MODEL_GIT}
 
-	#MODEL_FOLDER=`basename ${MODEL_GIT} | sed "s/.git//g"`
+#MODEL_FOLDER=`basename ${MODEL_GIT} | sed "s/.git//g"`
 
-	MODEL_FOLDER=${INSTALLDIR}/${MODEL_NAME}
-	cd ${MODEL_FOLDER}
+MODEL_FOLDER=${INSTALLDIR}/${MODEL_NAME}
+cd ${MODEL_FOLDER}
 
-	MODEL_WEIGHTS_HASH=`cat model.txt | grep MODEL_WEIGHTS | awk '{ print $2 }'`
-	CONDAPACK_HASH=`cat model.txt | grep CONDAPACK | awk '{ print $2 }'`
+MODEL_WEIGHTS_HASH=`cat model.txt | grep MODEL_WEIGHTS | awk '{ print $2 }'`
+CONDAPACK_HASH=`cat model.txt | grep CONDAPACK | awk '{ print $2 }'`
 
-	MODEL_WEIGHTS=`base64 -d <<<${MODEL_WEIGHTS_HASH} | gunzip`
-	echo wget -O model_weights.tar.gz -L ${MODEL_WEIGHTS}
-	wget -O model_weights.tar.gz -L ${MODEL_WEIGHTS}	
-	echo tar xf model_weights.tar.gz	
-	tar xf model_weights.tar.gz
-	rm model_weights.tar.gz
+MODEL_WEIGHTS=`base64 -d <<<${MODEL_WEIGHTS_HASH} | gunzip`
+echo wget -O model_weights.tar.gz -L ${MODEL_WEIGHTS}
+wget -O model_weights.tar.gz -L ${MODEL_WEIGHTS}	
+echo tar xf model_weights.tar.gz	
+tar xf model_weights.tar.gz
+rm model_weights.tar.gz
 
-	if [ "${POPTION}" == "C" ]
-	then 
-		#download conda-pack
-		mkdir ${MODEL_FOLDER}/conda-pack
-		cd ${MODEL_FOLDER}/conda-pack
-		CONDAPACK=`base64 -d <<<${CONDAPACK_HASH} | gunzip`
-		echo wget -O condapack.tar.gz -L ${CONDAPACK}
-		wget -O condapack.tar.gz -L ${CONDAPACK}
-		echo tar xf condapack.tar.gz
-		tar xf condapack.tar.gz
-		rm condapack.tar.gz
-	elif [ "${POPTION}" == "P" ]
+if [ "${POPTION}" == "C" ]
+then 
+	#download conda-pack
+	mkdir ${MODEL_FOLDER}/conda-pack
+	cd ${MODEL_FOLDER}/conda-pack
+	CONDAPACK=`base64 -d <<<${CONDAPACK_HASH} | gunzip`
+	echo wget -O condapack.tar.gz -L ${CONDAPACK}
+	wget -O condapack.tar.gz -L ${CONDAPACK}
+	echo tar xf condapack.tar.gz
+	tar xf condapack.tar.gz
+	rm condapack.tar.gz
+elif [ "${POPTION}" == "P" ]
+then
+	#set up Conda environment
+	CONDAHOME=`conda info | grep "base environment" | awk '{ print $4 }'`
+	if [ -z "${CONDAHOME}" ]
 	then
-		#set up Conda environment
-                CONDAHOME=`conda info | grep "base environment" | awk '{ print $4 }'`
-                if [ -z "${CONDAHOME}" ]
-                then
-                        echo "Anaconda may not be installed; python setup cannot continue"
-			echo "Exiting."
-                        exit 1
-                fi
-		conda create -y --name ${MODEL_NAME} python=3.8
-
-		source ${CONDAHOME}/etc/profile.d/conda.sh
-
-		conda activate ${MODEL_NAME}
-		pip install -r requirements.txt
+		echo "Anaconda may not be installed; python setup cannot continue"
+		echo "Exiting."
+		exit 1
 	fi
-#fi
+	conda create -y --name ${MODEL_NAME} python=3.8
 
+	source ${CONDAHOME}/etc/profile.d/conda.sh
 
-# Option 2: Install CT_Lung_SMIT
-#if [ "${MODEL_NUM}" == "2"] 
-#then
-#
-#fi
+	conda activate ${MODEL_NAME}
+	pip install -r requirements.txt
+fi
+
