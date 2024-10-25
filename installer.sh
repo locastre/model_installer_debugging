@@ -70,7 +70,7 @@ function help_text {
 	echo "		-m : [1-${N_MODELS}] Integer number to select model to install. For list of available options, see below. "
 	echo "		-d : Directory to install model with network weights "
 	echo "		-p : [P/C/N] Setup and install Python environment P: setup Conda env from python requirements.txt; C: Conda pack download; N: No install. " #User must already have Anaconda installed and initiated. "
-        echo "          -n : [1-${N_MODELS}] Print the model name of number argument "
+        echo "		-n : [1-${N_MODELS}] Print the model name of number argument "
 	echo "		-h : Print help menu "
 	echo " "
 	print_model_opts
@@ -95,7 +95,7 @@ POPTION="N"
 
 
 # parse input arguments
-while getopts ":hm:d:ip:" opt; do
+while getopts ":hm:d:ip:n:" opt; do
   case $opt in
     h)
 	help_text
