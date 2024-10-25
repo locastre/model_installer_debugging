@@ -8,7 +8,7 @@ function print_stratis_logo {
 	echo " " 
 }
 
-N_MODELS=7
+N_MODELS=8
 
 function define_models {
 	N=$1
@@ -70,6 +70,7 @@ function help_text {
 	echo "		-m : [1-${N_MODELS}] Integer number to select model to install. For list of available options, see below. "
 	echo "		-d : Directory to install model with network weights "
 	echo "		-p : [P/C/N] Setup and install Python environment P: setup Conda env from python requirements.txt; C: Conda pack download; N: No install. " #User must already have Anaconda installed and initiated. "
+        echo "          -n : [1-${N_MODELS}] Print the model name of number argument "
 	echo "		-h : Print help menu "
 	echo " "
 	print_model_opts
@@ -115,6 +116,10 @@ while getopts ":hm:d:ip:" opt; do
 
     i)
 	IMODE=1
+      ;;
+    n)
+        define_models ${OPTARG}
+	exit 0
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
