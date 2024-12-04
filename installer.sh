@@ -55,7 +55,7 @@ function define_models {
 }
 
 function print_model_opts {
-	N_MODELS=9
+	N_MODELS=$1
         echo "The following are the list of available models. When passing the argument to installer, select the number of the model to download: "
 	for N in `seq 1 ${N_MODELS}`
 	do
@@ -64,7 +64,7 @@ function print_model_opts {
 }
 
 function help_text {
-	N_MODELS=9
+	N_MODELS=$1
 	echo "Usage Information: "
 	echo "	Flags: "
 	echo "		-i : Flag to run installer in interactive mode (no argument)"
@@ -74,7 +74,7 @@ function help_text {
         echo "		-n : [1-${N_MODELS}] Print the model name of number argument "
 	echo "		-h : Print help menu "
 	echo " "
-	print_model_opts
+	print_model_opts $N_MODELS
 }
 
 function intro_text {
@@ -83,8 +83,8 @@ function intro_text {
 }
 
 
-print_stratis_logo
-intro_text
+print_stratis_logo $N_MODELS
+intro_text $N_MODELS
 
 
 #Initialize default options
@@ -99,7 +99,7 @@ POPTION="N"
 while getopts ":hm:d:ip:n:" opt; do
   case $opt in
     h)
-	help_text
+	help_text $N_MODELS
 	exit 0
       ;;
     m)
@@ -149,7 +149,7 @@ then
 	echo "***********************"
 	echo " " 
 
-	print_model_opts		
+	print_model_opts $N_MODELS	
 
 	echo "Please select model to install on local machine [${MODEL_NUM}]: "
 
