@@ -22,10 +22,10 @@ Welcome to the CERR segmentation model installer! For usage information, run wit
 Usage Information: 
 	Flags: 
 		-i : Flag to run installer in interactive mode (no argument)
-		-m : [1-8] Integer number to select model to install. For list of available options, see below. 
+		-m : [1-9] Integer number to select model to install. For list of available options, see below. 
 		-d : Directory to install model with network weights 
 		-p : [P/C/N] Setup and install Python environment P: setup Conda env from python requirements.txt; C: Conda pack download; N: No install. 
-		-n : [1-8] Print the model name of model number argument and exit
+		-n : [1-9] Print the model name of number argument 
 		-h : Print help menu 
  
 The following are the list of available models. When passing the argument to installer, select the number of the model to download: 
@@ -37,4 +37,5 @@ The following are the list of available models. When passing the argument to ins
           	6.  CT_HeadAndNeck_OARs
           	7.  CT_HN_SMIT
           	8.  CT_HeartSubstruct_SMIT
+          	9.  CT_WHOLEBODY_SMITplus
 ```
