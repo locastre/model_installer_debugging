@@ -8,7 +8,7 @@ function print_stratis_logo {
 	echo " " 
 }
 
-N_MODELS=8
+N_MODELS=9
 
 function define_models {
 	N=$1
@@ -37,6 +37,9 @@ function define_models {
      	   8)
      		MODEL_NAME=CT_HeartSubstruct_SMIT
        		;;
+	   9)
+    		MODEL_NAME=CT_WHOLEBODY_SMITplus
+      		;;
 #	   3) 
 #		MODEL_NAME=CT_Brain_SMIT
 #		MODEL_GIT="NONE"
@@ -51,10 +54,8 @@ function define_models {
 	echo $MODEL_NAME #${MODEL_GIT} ${MODEL_WEIGHTS} ${CONDAPACK}
 }
 
-#N_MODELS=6
-
 function print_model_opts {
-	N_MODELS=8
+	N_MODELS=9
         echo "The following are the list of available models. When passing the argument to installer, select the number of the model to download: "
 	for N in `seq 1 ${N_MODELS}`
 	do
@@ -63,7 +64,7 @@ function print_model_opts {
 }
 
 function help_text {
-	N_MODELS=8
+	N_MODELS=9
 	echo "Usage Information: "
 	echo "	Flags: "
 	echo "		-i : Flag to run installer in interactive mode (no argument)"
