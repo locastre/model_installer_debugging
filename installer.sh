@@ -222,7 +222,7 @@ fi
 mkdir -p ${INSTALLDIR}
 cd ${INSTALLDIR}
 
-MODEL_GIT="https://github.com/cerr/${MODEL_NAME}.git"
+MODEL_GIT="https://github.com/locastre/${MODEL_NAME}.git"
 echo git clone ${MODEL_GIT}
 git clone ${MODEL_GIT}
 
